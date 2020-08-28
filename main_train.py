@@ -16,7 +16,7 @@ from data_generator import LightingDataset
 import torch.backends.cudnn as cudnn
 import random
 from config import *
-from light_model import WIIENet
+from light_model import LightNet
 from torch.optim.lr_scheduler import StepLR
 from utils import *
 from torchvision import transforms, utils
@@ -86,7 +86,6 @@ def findLastCheckpoint(save_dir):
 
 def validation(epoch, val_DLoader):  # val_DDataset,
 
-    print('Aplicando Validacao...')
     val_loss = 0
     start_time = time.time()
 
@@ -116,7 +115,7 @@ def validation(epoch, val_DLoader):  # val_DDataset,
 if __name__ == '__main__':
     # model selection
     print('===> Building model')
-    model = WIIENet()
+    model = LightNet()
 
     transform_train = transforms.Compose([
         # transforms.RandomAffine(0, scale=(250,1000)),
@@ -190,7 +189,7 @@ if __name__ == '__main__':
             # print('batch shape ', batch_x.shape) #(batch_size, 3, 40,40)
             output, illu_estim = model(batch_y)
 
-            # loss = criterion(output, batch_x) # sum_squared
+
             # loss = 1 - ssim_loss(batch_x, output) # sum_squared
             ssim_value = torch.mean(ssim(batch_x, output, data_range=1, size_average=False))
             loss = 1 - ssim_value
@@ -223,9 +222,9 @@ if __name__ == '__main__':
         # print('salvou model_%03d.pth' % (epoch+1))
 
         if (epoch + 1) % 5 == 0:
-            print('FAZENDO CHECKPOINT...')
+            print('Saving CHECKPOINT...')
             torch.save(model, os.path.join(save_dir, 'model_%03d.pth' % (epoch + 1)))
-            print('salvou model_%03d.pth' % (epoch + 1))
+
         del xs
         del DDataset
         del DLoader
