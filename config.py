@@ -1,0 +1,29 @@
+
+MODEL_PATH = "models"
+TRAIN_DATASET = 'data/BSDS500_FULL/train'
+VALIDATION_DATASET = 'data/BSDS500_FULL/validation'
+DATASET_TEST_DIR = 'data/test'
+RESULT_DIR = 'results'
+
+
+BATCH_SIZE = 128 # zhang2017beyond
+LEARNING_RATE = 1e-3
+# LEARNING_RATE = 1e-2 #
+
+DARK_FACTOR = [0.1, 0.2, 0.3, 0.4,0.5]
+
+USE_GLOBAL_ILLU = True
+#USE_GLOBAL_ILLU = False
+
+
+SEED = 0
+# SEED = 28
+# SEED = 32
+# SEED = 27
+# SEED = 42
+
+# SEED = 7
+# SEED = 10
+# SEED = 83
+# SEED = 15
+# SEED = 77
